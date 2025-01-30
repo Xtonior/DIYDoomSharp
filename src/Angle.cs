@@ -10,6 +10,12 @@
             Normalize360();
         }
 
+        public Angle(UInt16 angle)
+        {
+            m_Angle = angle * (360.0f / 65536.0f);
+            Normalize360();
+        }
+
         public static Angle operator +(Angle a, Angle b)
         {
             return new Angle(a.m_Angle + b.m_Angle);

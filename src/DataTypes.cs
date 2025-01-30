@@ -7,13 +7,13 @@ using static SDL3.SDL;
 
 namespace DiyDoomSharp.src.DataTypes
 {
-    enum Identifiers : int
+    public static class Identifiers
     {
         // Subsector Identifier is the 16th bit which
         // indicate if the node ID is a subsector.
         // The node ID is stored as uint16
         // 0x8000 in binary 1000000000000000
-        SUBSECTORIDENTIFIER = 0x8000
+        public static readonly UInt16 SUBSECTORIDENTIFIER = 0x8000;
     }
 
     public enum EMAPLUMPSINDEX
@@ -113,7 +113,7 @@ namespace DiyDoomSharp.src.DataTypes
         public string UpperTexture;
         public string LowerTexture;
         public string MiddleTexture;
-        Sector pSector;
+        public Sector TargetSector;
     }
 
     public struct WADLinedef
@@ -201,14 +201,14 @@ namespace DiyDoomSharp.src.DataTypes
 
     public struct Seg
     {
-        public Vertex pStartVertex;
-        public Vertex pEndVertex;
+        public Vertex StartVertex;
+        public Vertex EndVertex;
         public Angle SlopeAngle;
-        public Linedef pLinedef;
+        public Linedef TargetLinedef;
         public UInt16 Direction; // 0 same as linedef, 1 opposite of linedef
         public UInt16 Offset; // distance along linedef to start of seg    
-        public Sector pRightSector;
-        public Sector pLeftSector;
+        public Sector RightSector;
+        public Sector LeftSector;
     }
 
     public struct Subsector
