@@ -238,8 +238,8 @@ namespace DiyDoomSharp.src
             {
                 wadseg = m_WADSegs[i];
 
-                seg.pStartVertex = m_Vertexes[wadseg.StartVertexID];
-                seg.pEndVertex = m_Vertexes[wadseg.EndVertexID];
+                seg.StartVertex = m_Vertexes[wadseg.StartVertexID];
+                seg.EndVertex = m_Vertexes[wadseg.EndVertexID];
 
                 seg.SlopeAngle = new Angle(wadseg.SlopeAngle);
                 seg.TargetLinedef = m_Linedefs[wadseg.LinedefID];

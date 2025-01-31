@@ -7,22 +7,22 @@ using System.Threading.Tasks;
 
 namespace DiyDoomSharp.src
 {
-    public class AssetsManager
+    public static class AssetsManager
     {
-        protected WADLoader? m_WADLoader = null;
-        protected bool m_Initialized = false;
+        private static WADLoader? m_WADLoader = null;
+        private static bool m_Initialized = false;
 
-        protected Dictionary<string, Patch> m_PatchesCache = new Dictionary<string, Patch>();
-        protected Dictionary<string, Texture> m_TexturesCache = new Dictionary<string, Texture>();
+        private static Dictionary<string, Patch> m_PatchesCache = new Dictionary<string, Patch>();
+        private static Dictionary<string, Texture> m_TexturesCache = new Dictionary<string, Texture>();
 
-        protected List<string> m_NameLookup = new List<string>();
+        private static List<string> m_NameLookup = new List<string>();
 
-        public void Init(WADLoader pWADLoader)
+        public static void Init(WADLoader pWADLoader)
         {
             m_WADLoader = pWADLoader;
         }
 
-        public Patch AddPatch(string patchName, WADPatchHeader PatchHeader)
+        public static Patch AddPatch(string patchName, ref WADPatchHeader PatchHeader)
         {
             m_PatchesCache[patchName] = new Patch(patchName);
             Patch p_Patch = m_PatchesCache[patchName];
@@ -30,12 +30,12 @@ namespace DiyDoomSharp.src
             return p_Patch;
         }
 
-        public Patch GetPatch(string patchName)
+        public static Patch GetPatch(string patchName)
         {
             return m_PatchesCache[patchName];
         }
 
-        public Texture AddTexture(WADTextureData textureData)
+        public static Texture AddTexture(ref WADTextureData textureData)
         {
             m_TexturesCache[textureData.TextureName] = new Texture(textureData);
             Texture texture = m_TexturesCache[textureData.TextureName];
@@ -43,7 +43,7 @@ namespace DiyDoomSharp.src
             return texture;
         }
 
-        public Texture? GetTexture(string name)
+        public static Texture? GetTexture(string name)
         {
             Texture texture = m_TexturesCache[name];
 
@@ -60,14 +60,14 @@ namespace DiyDoomSharp.src
             return texture;
         }
 
-        public void AddName(string name)
+        public static void AddName(string name)
         {
             m_NameLookup.Add(name);
         }
 
-        public string GetName(int index) => m_NameLookup[index];
+        public static string GetName(int index) => m_NameLookup[index];
 
-        private void LoadPatch(string patchName)
+        public static void LoadPatch(string patchName)
         {
             m_WADLoader.
         }
