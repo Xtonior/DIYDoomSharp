@@ -1,16 +1,10 @@
 ﻿using DiyDoomSharp.src.DataTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiyDoomSharp.src
 {
     public class Things
     {
-        protected List<Thing> m_Things = new List<Thing>();
+        private List<Thing> m_Things = new List<Thing>();
 
         public void AddTins(Thing thing)
         {

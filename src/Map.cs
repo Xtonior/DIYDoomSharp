@@ -4,30 +4,30 @@ namespace DiyDoomSharp.src
 {
     public class Map
     {
-        protected string m_Name = "";
+        private string m_Name = "";
 
-        protected List<Vertex> m_Vertexes = new List<Vertex>();
-        protected List<Sector> m_Sectors = new List<Sector>();
-        protected List<Sidedef> m_Sidedefs = new List<Sidedef>();
-        protected List<Linedef> m_Linedefs = new List<Linedef>();
-        protected List<Seg> m_Segs = new List<Seg>();
-        protected List<Subsector> m_Subsectors = new List<Subsector>();
-        protected List<Node> m_Nodes = new List<Node>();
+        private List<Vertex> m_Vertexes = new List<Vertex>();
+        private List<Sector> m_Sectors = new List<Sector>();
+        private List<Sidedef> m_Sidedefs = new List<Sidedef>();
+        private List<Linedef> m_Linedefs = new List<Linedef>();
+        private List<Seg> m_Segs = new List<Seg>();
+        private List<Subsector> m_Subsectors = new List<Subsector>();
+        private List<Node> m_Nodes = new List<Node>();
 
-        protected List<WADSector> m_WADSectors;
-        protected List<WADSidedef> m_WADSidedefs;
-        protected List<WADLinedef> m_WADLinedefs;
-        protected List<WADSeg> m_WADSegs;
+        private List<WADSector> m_WADSectors;
+        private List<WADSidedef> m_WADSidedefs;
+        private List<WADLinedef> m_WADLinedefs;
+        private List<WADSeg> m_WADSegs;
 
-        protected int m_XMin;
-        protected int m_XMax;
-        protected int m_YMin;
-        protected int m_YMax;
-        protected int m_iLumpIndex;
+        private int m_XMin;
+        private int m_XMax;
+        private int m_YMin;
+        private int m_YMax;
+        private int m_iLumpIndex;
 
-        protected Player m_Player;
-        protected Things m_Things;
-        protected ViewRenderer m_ViewRenderer = new ViewRenderer();
+        private Player m_Player;
+        private Things m_Things;
+        private ViewRenderer m_ViewRenderer = new ViewRenderer();
 
         public Map()
         {

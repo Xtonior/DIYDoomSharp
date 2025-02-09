@@ -2,7 +2,7 @@
 {
     public class Angle
     {
-        protected float m_Angle = 0.0f;
+        private float m_Angle = 0.0f;
 
         public Angle(float angle)
         {

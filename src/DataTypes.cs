@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static SDL3.SDL;
+﻿using SDL2;
 
 namespace DiyDoomSharp.src.DataTypes
 {
@@ -52,7 +47,7 @@ namespace DiyDoomSharp.src.DataTypes
         public uint DirectoryOffset;
     }
 
-    public struct Directory
+    public struct WADDirectory
     {
         public UInt32 LumpOffset;
         public UInt32 LumpSize;
@@ -240,6 +235,6 @@ namespace DiyDoomSharp.src.DataTypes
 
     public struct WADPalette
     {
-        public List<SDL_Color> Colors;
+        public List<SDL.SDL_Color> Colors;
     }
 }

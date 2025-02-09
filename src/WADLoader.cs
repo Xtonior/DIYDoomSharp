@@ -1,20 +1,15 @@
 ﻿using DiyDoomSharp.src.DataTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiyDoomSharp.src
 {
     public class WADLoader
     {
-        protected string? m_WADFilePath;
-        protected FileInfo? m_WADFile;       // File?
-        protected List<string>? m_WADDirectories;
-        protected byte[]? m_WADData;
+        private string? m_WADFilePath;
+        private FileInfo? m_WADFile;       // File?
+        private List<WADDirectory>? m_WADDirectories;
+        private byte[]? m_WADData;
 
-        protected WADReader m_Reader = new WADReader();
+        private WADReader m_Reader = new WADReader();
 
         public void SetWADFilePath(string filePath)
         {
@@ -93,6 +88,8 @@ namespace DiyDoomSharp.src
                 Console.WriteLine($"Error: Failed to load map subsectors data MAP: {map.GetName()}");
                 return false;
             }
+
+            return true;
         }
 
         public bool LoadPalette(DisplayManager displayManager)
@@ -109,7 +106,7 @@ namespace DiyDoomSharp.src
             for (int i = 0; i < 14; i++)
             {
                 m_Reader.ReadPalette(m_WADData, m_WADDirectories[iPlaypalIndex].LumpOffset + (i * 3 * 256), out palette);
-                displayManager.AddColorPalette(ref palette);
+                displayManager.AddColorPalette(palette);
             }
 
             return true;
@@ -131,11 +128,11 @@ namespace DiyDoomSharp.src
 
             for (int i = 0; i < patchHeader.Width; ++i)
             {
-                int Offset = m_WADDirectories[iPatchIndex].LumpOffset + patchHeader.ColumnOffsets[i];
+                long offset = m_WADDirectories[iPatchIndex].LumpOffset + patchHeader.ColumnOffsets[i];
                 patch.AppendColumnStartIndex();
                 do
                 {
-                    Offset = m_Reader.ReadPatchColumn(m_WADData, Offset, out patchColumnData);
+                    offset = m_Reader.ReadPatchColumn(m_WADData, offset, out patchColumnData);
                     patch.AppendPatchColumn(patchColumnData);
                 } while (patchColumnData.TopDelta != 0xFF);
             }

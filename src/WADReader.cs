@@ -1,10 +1,4 @@
 ﻿using DiyDoomSharp.src.DataTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace DiyDoomSharp.src
 {
@@ -14,6 +8,8 @@ namespace DiyDoomSharp.src
         {
             //0x00 to 0x03
             string c;
+
+            header = new Header();
 
             for (int i = 0; i < 4; i++)
             {
@@ -28,7 +24,7 @@ namespace DiyDoomSharp.src
             header.DirectoryCount = Read4Bytes(WADData, offset + 8);
         }
 
-        public void ReadDirectoryData(byte[] WADData, int offset, DataTypes.Directory directory)
+        public void ReadDirectoryData(byte[] WADData, long offset, WADDirectory directory)
         {
             //0x00 to 0x03
             directory.LumpOffset = Read4Bytes(WADData, offset);
@@ -43,7 +39,7 @@ namespace DiyDoomSharp.src
             }
         }
 
-        public void ReadVertexData(byte[] WADData, int offset, out Vertex vertex)
+        public void ReadVertexData(byte[] WADData, long offset, out Vertex vertex)
         {
             //0x00 to 0x01
             vertex.XPosition = Read2Bytes(WADData, offset);
@@ -52,8 +48,10 @@ namespace DiyDoomSharp.src
             vertex.YPosition = Read2Bytes(WADData, offset + 2);
         }
 
-        public void ReadSectorData(byte[] WADData, int offset, out WADSector sector)
+        public void ReadSectorData(byte[] WADData, long offset, out WADSector sector)
         {
+            sector = new WADSector();
+
             sector.FloorHeight = Read2Bytes(WADData, offset);
             sector.CeilingHeight = Read2Bytes(WADData, offset + 2);
 
@@ -76,7 +74,7 @@ namespace DiyDoomSharp.src
             sector.Tag = Read2Bytes(WADData, offset + 24);
         }
 
-        public void ReadSidedefData(byte[] WADData, int offset, out WADSidedef sidedef)
+        public void ReadSidedefData(byte[] WADData, long offset, out WADSidedef sidedef)
         {
             sidedef = new WADSidedef();
 
@@ -106,7 +104,7 @@ namespace DiyDoomSharp.src
             sidedef.SectorID = Read2Bytes(WADData, offset + 28);
         }
 
-        public void ReadLinedefData(byte[] WADData, int offset, out WADLinedef linedef)
+        public void ReadLinedefData(byte[] WADData, long offset, out WADLinedef linedef)
         {
             linedef.StartVertexID = Read2Bytes(WADData, offset);
             linedef.EndVertexID = Read2Bytes(WADData, offset + 2);
@@ -117,7 +115,7 @@ namespace DiyDoomSharp.src
             linedef.LeftSidedef = Read2Bytes(WADData, offset + 12);
         }
 
-        public void ReadThingData(byte[] WADData, int offset, out Thing thing)
+        public void ReadThingData(byte[] WADData, long offset, out Thing thing)
         {
             thing.XPosition = (short)Read2Bytes(WADData, offset);
             thing.YPosition = (short)Read2Bytes(WADData, offset + 2);
@@ -126,7 +124,7 @@ namespace DiyDoomSharp.src
             thing.Flags = Read2Bytes(WADData, offset + 8);
         }
 
-        public void ReadNodeData(byte[] WADData, int offset, out Node node)
+        public void ReadNodeData(byte[] WADData, long offset, out Node node)
         {
             node.XPartition = (short)Read2Bytes(WADData, offset);
             node.YPartition = (short)Read2Bytes(WADData, offset + 2);
@@ -147,13 +145,13 @@ namespace DiyDoomSharp.src
             node.LeftChildID = Read2Bytes(WADData, offset + 26);
         }
 
-        public void ReadSubsectorData(byte[] WADData, int offset, out Subsector subsector)
+        public void ReadSubsectorData(byte[] WADData, long offset, out Subsector subsector)
         {
             subsector.SegCount = Read2Bytes(WADData, offset);
             subsector.FirstSegID = Read2Bytes(WADData, offset + 2);
         }
 
-        public void ReadSegData(byte[] WADData, int offset, out WADSeg seg)
+        public void ReadSegData(byte[] WADData, long offset, out WADSeg seg)
         {
             seg.StartVertexID = Read2Bytes(WADData, offset);
             seg.EndVertexID = Read2Bytes(WADData, offset + 2);
@@ -163,10 +161,10 @@ namespace DiyDoomSharp.src
             seg.Offset = Read2Bytes(WADData, offset + 10);
         }
 
-        public void ReadPalette(byte[] WADData, int offset, out WADPalette palette)
+        public void ReadPalette(byte[] WADData, long offset, out WADPalette palette)
         {
-            palette.Colors = new List<SDL3.SDL.SDL_Color>();
-            SDL3.SDL.SDL_Color col = new SDL3.SDL.SDL_Color();
+            palette.Colors = new List<SDL2.SDL.SDL_Color>();
+            SDL2.SDL.SDL_Color col = new SDL2.SDL.SDL_Color();
 
             for (int i = 0; i < 256; i++)
             {
@@ -179,7 +177,7 @@ namespace DiyDoomSharp.src
             }
         }
 
-        public void ReadPatchHeader(byte[] WADData, int offset, out WADPatchHeader patchHeader)
+        public void ReadPatchHeader(byte[] WADData, long offset, out WADPatchHeader patchHeader)
         {
             //0x00 to 0x01
             patchHeader.Width = (short)Read2Bytes(WADData, offset);
@@ -201,13 +199,13 @@ namespace DiyDoomSharp.src
             }
         }
 
-        public void ReadName(byte[] WADData, int offset, out WADNames names)
+        public void ReadName(byte[] WADData, long offset, out WADNames names)
         {
             names.NameCount = Read4Bytes(WADData, offset);
             names.NameOffset = (uint)(offset + 4);
         }
 
-        public void ReadTextureHeader(byte[] WADData, int offset, out WADTextureHeader header)
+        public void ReadTextureHeader(byte[] WADData, long offset, out WADTextureHeader header)
         {
             header.TexturesCount = Read4Bytes(WADData, offset);
             header.TexturesOffset = Read4Bytes(WADData, offset + 4);
@@ -222,7 +220,7 @@ namespace DiyDoomSharp.src
             }
         }
 
-        public void ReadTextureData(byte[] WADData, int offset, out WADTextureData texture)
+        public void ReadTextureData(byte[] WADData, long offset, out WADTextureData texture)
         {
             texture = new WADTextureData();
 
@@ -242,7 +240,7 @@ namespace DiyDoomSharp.src
             texture.TexturePatches = new WADTexturePatch[texture.PatchCount];
         }
 
-        public void ReadTexturePatch(byte[] WADData, int offset, out WADTexturePatch texturePatch)
+        public void ReadTexturePatch(byte[] WADData, long offset, out WADTexturePatch texturePatch)
         {
             texturePatch.XOffset = (short)Read2Bytes(WADData, offset);
             texturePatch.YOffset = (short)Read2Bytes(WADData, offset + 2);
@@ -251,7 +249,7 @@ namespace DiyDoomSharp.src
             texturePatch.ColorMap = Read2Bytes(WADData, offset + 8);
         }
 
-        public void Read8Characters(byte[] WADData, int offset, string name)
+        public void Read8Characters(byte[] WADData, long offset, string name)
         {
             name += WADData[offset++];  // [0]
             name += WADData[offset++];  // [1]
@@ -263,7 +261,7 @@ namespace DiyDoomSharp.src
             name += WADData[offset];    // [7]
         }
 
-        public int ReadPatchColumn(byte[] WADData, int offset, out PatchColumnData patch)
+        public long ReadPatchColumn(byte[] WADData, long offset, out PatchColumnData patch)
         {
             patch = new PatchColumnData();
             patch.TopDelta = WADData[offset++];
@@ -286,14 +284,14 @@ namespace DiyDoomSharp.src
             return offset;
         }
 
-        private UInt16 Read2Bytes(byte[] WADData, int offset)
+        private UInt16 Read2Bytes(byte[] WADData, long offset)
         {
-            return BitConverter.ToUInt16(WADData, offset);
+            return BitConverter.ToUInt16(WADData, (int)offset);
         }
 
-        private UInt32 Read4Bytes(byte[] WADData, int offset)
+        private UInt32 Read4Bytes(byte[] WADData, long offset)
         {
-            return BitConverter.ToUInt32(WADData, offset);
+            return BitConverter.ToUInt32(WADData, (int)offset);
         }
     }
 }

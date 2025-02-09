@@ -1,9 +1,4 @@
 ﻿using DiyDoomSharp.src.DataTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DiyDoomSharp.src
 {
@@ -69,7 +64,14 @@ namespace DiyDoomSharp.src
 
         public static void LoadPatch(string patchName)
         {
-            m_WADLoader.
+            m_WADLoader.LoadPatch(patchName);
+        }
+
+        public static void LoadTextures()
+        {
+            m_WADLoader.LoadPNames();
+            m_WADLoader.LoadTextures("TEXTURE1");
+            m_WADLoader.LoadTextures("TEXTURE2");
         }
     }
 }

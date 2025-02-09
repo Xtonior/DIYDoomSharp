@@ -4,19 +4,19 @@ namespace DiyDoomSharp.src
 {
     public class Player
     {
-        protected int m_iPlayerID;
-        protected int m_XPosition;
-        protected int m_YPosition;
-        protected int m_ZPosition;
-        protected int m_EyeLevel;
-        protected int m_FOV;
-        protected int m_iRotationSpeed;
-        protected int m_iMoveSpeed;
+        private int m_iPlayerID;
+        private int m_XPosition;
+        private int m_YPosition;
+        private int m_ZPosition;
+        private int m_EyeLevel;
+        private int m_FOV;
+        private int m_iRotationSpeed;
+        private int m_iMoveSpeed;
 
-        protected Angle m_Angle = new Angle(0.0f);
-        protected Angle m_HalfFOV = new Angle(60.0f);
-        protected ViewRenderer? m_ViewRenderer;
-        protected Weapon m_Weapon;
+        private Angle m_Angle = new Angle(0.0f);
+        private Angle m_HalfFOV = new Angle(60.0f);
+        private ViewRenderer? m_ViewRenderer;
+        private Weapon m_Weapon;
 
         public Player(ViewRenderer viewRenderer, int iID)
         {
